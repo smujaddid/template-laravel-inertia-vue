@@ -6,12 +6,15 @@ import js from '@eslint/js'
 import nodePlugin from 'eslint-plugin-n'
 // @ts-expect-error missing type
 import * as importPlugin from 'eslint-plugin-import'
+
 // @ts-expect-error missing type
 import promisePlugin from 'eslint-plugin-promise'
 import standard from 'eslint-config-standard'
 
 import vuePlugin from 'eslint-plugin-vue'
 import vueParser from 'vue-eslint-parser'
+
+import { fileURLToPath, URL } from 'node:url'
 
 const jsExtensions = ['.js', '.cjs', '.mjs', '.jsx']
 const typeScriptExtensions = ['.ts', '.cts', '.mts', '.tsx']
@@ -76,7 +79,7 @@ export default [
       ...importPlugin.configs.recommended.rules,
       ...importPlugin.configs.typescript.rules,
       ...nodePluginConfigFlatRecommended.rules,
-      ...promisePlugin.configs.recommended.rules,
+      // ...promisePlugin.configs.recommended.rules,
       ...standard.rules
     },
     settings: {
@@ -90,13 +93,23 @@ export default [
         node: {
           extensions: allExtensions
         },
-        typescript: true
+        typescript: true,
+        'eslint-import-resolver-custom-alias': {
+          alias: {
+            '@': fileURLToPath(new URL('./resources/js', import.meta.url))
+          },
+          extensions: ['.js', '.vue']
+        }
       }
     }
   },
   {
     files: ['**/*.vue'],
     languageOptions: {
+      globals: {
+        route: 'readonly',
+        axios: 'readonly'
+      },
       parser: vueParser,
       parserOptions: {
         extraFileExtensions: ['.vue']
@@ -113,6 +126,8 @@ export default [
   {
     // Override rules
     rules: {
+      // False error
+      'n/no-missing-import': 0,
       // allow paren-less arrow functions
       'arrow-parens': 0,
       // allow async-await
