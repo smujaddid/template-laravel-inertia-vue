@@ -1,7 +1,7 @@
 <script setup>
 defineProps({
-    on: Boolean,
-});
+  on: Boolean
+})
 </script>
 
 <template>
