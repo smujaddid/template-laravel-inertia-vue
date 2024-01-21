@@ -5,7 +5,8 @@ export default {
     'stylelint-config-html/php',
     'stylelint-config-html/vue',
     'stylelint-config-standard-scss',
-    'stylelint-config-standard-vue/scss'
+    'stylelint-config-standard-vue/scss',
+    '@stylistic/stylelint-config'
   ],
   rules: {
     'scss/at-rule-no-unknown': [
