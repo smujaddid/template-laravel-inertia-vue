@@ -2,10 +2,11 @@
 export default {
   extends: [
     'stylelint-config-html/html',
+    'stylelint-config-html/php',
     'stylelint-config-html/vue',
-    'stylelint-config-standard-scss'
+    'stylelint-config-standard-scss',
+    'stylelint-config-standard-vue/scss'
   ],
-  customSyntax: 'postcss-html',
   rules: {
     'scss/at-rule-no-unknown': [
       true,
