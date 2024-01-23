@@ -1,6 +1,7 @@
 /* eslint-disable n/no-extraneous-import */
 import globals from 'globals'
 import js from '@eslint/js'
+import StylisticPlugin from '@stylistic/eslint-plugin'
 
 // @ts-expect-error missing type
 import nodePlugin from 'eslint-plugin-n'
@@ -72,7 +73,8 @@ export default [
     plugins: {
       import: importPlugin,
       n: nodePlugin,
-      promise: promisePlugin
+      promise: promisePlugin,
+      '@stylistic': StylisticPlugin
     },
     rules: {
       ...js.configs.recommended.rules,
@@ -80,7 +82,9 @@ export default [
       ...importPlugin.configs.typescript.rules,
       ...nodePluginConfigFlatRecommended.rules,
       // ...promisePlugin.configs.recommended.rules,
-      ...standard.rules
+      ...standard.rules,
+      ...StylisticPlugin.configs['disable-legacy'].rules,
+      ...StylisticPlugin.configs['recommended-flat'].rules
     },
     settings: {
       'import/extensions': allExtensions,
@@ -128,11 +132,10 @@ export default [
     rules: {
       // False error
       'n/no-missing-import': 0,
-      // allow paren-less arrow functions
-      'arrow-parens': 0,
-      // allow async-await
-      'generator-star-spacing': 0,
-      // allow debugger during development
+      '@stylistic/arrow-parens': 0,
+      '@stylistic/brace-style': [2, '1tbs'],
+      '@stylistic/comma-dangle': [2, 'only-multiline'],
+      '@stylistic/quote-props': [2, 'as-needed'],
       'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
     }
   }
