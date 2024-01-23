@@ -15,11 +15,11 @@ const props = defineProps({
 })
 
 const proxyChecked = computed({
-  get () {
+  get() {
     return props.checked
   },
 
-  set (val) {
+  set(val) {
     emit('update:checked', val)
   }
 })
